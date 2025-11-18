@@ -11,6 +11,8 @@ output: html_document
 ```{r}
 # run remotes::install_github("benyamindsmith/RKaggle")
 library(RKaggle)
+library(dplyr)
+library(tidyr)
 ```
 
 # Importing Data
@@ -20,3 +22,40 @@ Reference: https://www.kaggle.com/datasets/sahilislam007/ai-impact-on-job-market
 ```{r}
 raw_df <- get_dataset("sahilislam007/ai-impact-on-job-market-20242030")
 ```
+
+# Basic Data Cleaning
+
+```{r}
+summary(raw_df)
+
+# factorise certain columns
+
+df <- raw_df
+
+cols <- c("Job Status", "Required Education", "AI Impact Level", "Industry")
+df[cols] <- lapply(raw_df[cols], as.factor)
+
+# order the factors
+
+df$`AI Impact Level` <- factor(
+  df$`AI Impact Level`,
+  levels = c("Low", "Moderate", "High"),
+  ordered = TRUE
+)
+
+df$`Required Education` <- factor(
+  df$`Required Education`,
+  levels = c("High School", "Associate Degree", "Bachelor’s Degree", "Master’s Degree", "PhD"),
+  ordered = TRUE
+)
+
+```
+
+
+```{r}
+head(df)
+
+summary(df)
+```
+  
+
