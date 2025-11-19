@@ -77,3 +77,24 @@ logit.reg <- glm(`Job Status` ~ `AI Impact Level` + `Median Salary (USD)` + `Req
 
 summary(logit.reg)
 ```
+
+# Prediction
+
+```{r}
+logitPredict <- predict(logit.reg, test.df, type = "response")
+
+summary(logitPredict)
+
+logitPredictClass <- ifelse(logitPredict > 0.5, 1, 0)
+```
+
+# Confusion Matrix
+
+```{r}
+actual <- test.df$`Job Status`
+predict <- logitPredictClass
+cm <- table(predict, actual)
+
+cm
+
+```
