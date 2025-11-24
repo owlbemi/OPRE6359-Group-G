@@ -1,74 +1,9 @@
----
-title: "GroupG"
-output: html_document
----
-# Config Git
-``git config --global user.name "Your Name"``
-``git config --global user.email "your.email@example.com"``
 
-# Required packages
+# Vinisha's Decision Tree Section
 
-```{r}
-# run remotes::install_github("benyamindsmith/RKaggle")
-library(RKaggle)
-library(dplyr)
-library(tidyr)
-library(caret)
+# Load libraries
 library(rpart)
 library(rpart.plot)
-```
-
-# Importing Data
-
-Reference: https://www.kaggle.com/datasets/sahilislam007/ai-impact-on-job-market-20242030
-
-```{r}
-raw_df <- get_dataset("sahilislam007/ai-impact-on-job-market-20242030")
-```
-
-# Basic Data Cleaning
-
-```{r}
-summary(raw_df)
-
-# factorise certain columns
-
-df <- raw_df
-
-cols <- c("Job Status", "Required Education", "AI Impact Level", "Industry")
-df[cols] <- lapply(raw_df[cols], as.factor)
-
-# order the factors
-
-df$`AI Impact Level` <- factor(
-  df$`AI Impact Level`,
-  levels = c("Low", "Moderate", "High"),
-  ordered = TRUE
-)
-
-df$`Required Education` <- factor(
-  df$`Required Education`,
-  levels = c("High School", "Associate Degree", "Bachelor’s Degree", "Master’s Degree", "PhD"),
-  ordered = TRUE
-)
-
-```
-
-
-```{r}
-head(df)
-
-summary(df)
-```
-
-```{r}
-names(df)
-```
-
-
-# Decision Tree Section
-
-```{r}
 
 # Keep only numeric predictors + target
 df_numeric <- df[, c(
@@ -84,10 +19,6 @@ df_numeric <- df[, c(
 
 # Check structure
 str(df_numeric)
-
-```
-
-```{r}
 
 # Split into training and test sets (2/3 training, 1/3 test)
 set.seed(345)
@@ -106,10 +37,6 @@ fit_numeric <- rpart(
 
 # Check the fit
 print(fit)
-
-```
-
-```{r}
 
 # Plot the tree
 rpart.plot(fit_numeric, type = 1, extra = 2, cex = 0.6)
@@ -132,6 +59,4 @@ jobstatus.pred <- predict(fit_numeric, test_data, type = "class")
 jobstatus.actual <- test_data$Job.Status
 test_accuracy <- sum(jobstatus.pred == jobstatus.actual) / nrow(test_data)
 print(paste("Testing Accuracy:", round(test_accuracy, 3)))
-
-```
 
