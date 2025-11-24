@@ -1,7 +1,7 @@
 ---
 title: 'OPRE6359 Group G Final Project'
 subtitle: 'MIS6356.004'
-author: "Jake Lee, Mishal Andoor, Vinisha Gunasaleen, Jayveenrhaj Gunasaleen"
+author: "Jake Lee, Mishal Andoor, Vinisha Gunasaleen, Jayveenrhaj Gunasaleen, Nivas Annamareddy, Andrea Ontiveros"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   pdf_document: default
