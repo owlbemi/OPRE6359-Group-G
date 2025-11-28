@@ -1,0 +1,31 @@
+
+## Confusion Matrix
+
+actual <- test.df$`Job Status`
+predict <- logitPredictClass
+cm <- table(predict, actual)
+
+cm
+
+#odds ratio
+exp(coef(logit.reg))
+
+tp <- cm[2,2]
+tn <- cm[1,1]
+fp <- cm[2,1]
+fn <- cm[1,2]
+
+# Accuracy
+(tp + tn)/(tp + tn + fp + fn)
+
+# TPR = Recall = Sensitivity
+tp/(fn+tp)
+
+# TNR = Specificity
+tn/(fp+tn)
+
+# FPR
+fp/(fp+tn)
+
+# FNR
+fn/(fn+tp)
